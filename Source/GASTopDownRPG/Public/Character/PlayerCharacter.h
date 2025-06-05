@@ -14,4 +14,6 @@ class GASTOPDOWNRPG_API APlayerCharacter : public ARPGCharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	APlayerCharacter();
 };
