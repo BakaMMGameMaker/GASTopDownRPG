@@ -16,6 +16,8 @@ class GASTOPDOWNRPG_API AEnemyCharacter : public ARPGCharacterBase, public IEnem
 	GENERATED_BODY()
 
 public:
+	AEnemyCharacter();
+
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
 
