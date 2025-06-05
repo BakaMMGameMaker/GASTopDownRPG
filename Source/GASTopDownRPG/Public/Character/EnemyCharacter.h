@@ -18,4 +18,7 @@ class GASTOPDOWNRPG_API AEnemyCharacter : public ARPGCharacterBase, public IEnem
 public:
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHighlighted = false;
 };
