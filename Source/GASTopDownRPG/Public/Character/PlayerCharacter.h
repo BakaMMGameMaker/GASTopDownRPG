@@ -16,4 +16,10 @@ class GASTOPDOWNRPG_API APlayerCharacter : public ARPGCharacterBase
 	
 public:
 	APlayerCharacter();
+
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+private:
+	void InitAbilityActorInfo();
 };

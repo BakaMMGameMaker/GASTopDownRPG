@@ -2,7 +2,10 @@
 
 
 #include "Character/PlayerCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/RPGPlayerState.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -14,4 +17,31 @@ APlayerCharacter::APlayerCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
+}
+
+void APlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	// Init ability actor info for the Server
+	InitAbilityActorInfo();
+	// Pointers are set on the server now, but we still need to set them in client
+	// As Server and Client do not share one instance
+}
+
+void APlayerCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	// Init ability actor info for the client
+	InitAbilityActorInfo();
+}
+
+void APlayerCharacter::InitAbilityActorInfo()
+{
+	ARPGPlayerState* PlayerState = GetPlayerState<ARPGPlayerState>();
+	check(PlayerState);
+	PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(PlayerState, this);
+	AbilitySystemComponent = PlayerState->GetAbilitySystemComponent();
+	AttributeSet = PlayerState->GetAttributeSet();
 }
