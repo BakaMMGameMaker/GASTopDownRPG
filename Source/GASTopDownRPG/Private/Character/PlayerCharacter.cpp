@@ -2,7 +2,6 @@
 
 
 #include "Character/PlayerCharacter.h"
-
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/RPGPlayerState.h"
@@ -39,9 +38,9 @@ void APlayerCharacter::OnRep_PlayerState()
 
 void APlayerCharacter::InitAbilityActorInfo()
 {
-	ARPGPlayerState* PlayerState = GetPlayerState<ARPGPlayerState>();
-	check(PlayerState);
-	PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(PlayerState, this);
-	AbilitySystemComponent = PlayerState->GetAbilitySystemComponent();
-	AttributeSet = PlayerState->GetAttributeSet();
+	ARPGPlayerState* RPGPlayerState = GetPlayerState<ARPGPlayerState>();
+	check(RPGPlayerState);
+	RPGPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(RPGPlayerState, this);
+	AbilitySystemComponent = RPGPlayerState->GetAbilitySystemComponent();
+	AttributeSet = RPGPlayerState->GetAttributeSet();
 }
