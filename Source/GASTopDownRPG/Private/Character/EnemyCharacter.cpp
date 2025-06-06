@@ -2,11 +2,19 @@
 
 
 #include "Character/EnemyCharacter.h"
+
+#include "AbilitySystem/RPGAbilitySystemComponent.h"
+#include "AbilitySystem/RPGAttributeSet.h"
 #include "GASTopDownRPG/GASTopDownRPG.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+	AbilitySystemComponent = CreateDefaultSubobject<URPGAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+
+	AttributeSet = CreateDefaultSubobject<URPGAttributeSet>("AttributeSet");
 }
 
 void AEnemyCharacter::HighlightActor()
