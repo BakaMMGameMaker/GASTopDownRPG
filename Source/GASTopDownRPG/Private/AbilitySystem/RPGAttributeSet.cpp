@@ -2,11 +2,14 @@
 
 
 #include "AbilitySystem/RPGAttributeSet.h"
-#include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
 URPGAttributeSet::URPGAttributeSet()
 {
+	InitHealth(100.f);
+	InitMaxHealth(100.f);
+	InitMana(100.f);
+	InitMaxMana(100.f);
 }
 
 void URPGAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
