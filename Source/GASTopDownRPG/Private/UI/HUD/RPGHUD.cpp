@@ -12,6 +12,7 @@ UOverlayWidgetController* ARPGHUD::GetOverlayWidgetController(const FWidgetContr
 	{
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependencies(); // Let necessary functions to be called when attributes changed in attribute set
 	}
 	return OverlayWidgetController;
 }
@@ -28,6 +29,7 @@ void ARPGHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyste
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 	
 	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues(); // Called Broadcast only after Widget are set, bind events to delegates to see the effects
 	
 	Widget->AddToViewport();
 }
