@@ -20,9 +20,9 @@ void ARPGEffectActor::BeginPlay()
 
 }
 
-void ARPGEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass) const
+void ARPGEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass) const
 {
-	auto TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	auto TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if (TargetASC == nullptr) return;
 
 	check(GameplayEffectClass);
@@ -30,6 +30,6 @@ void ARPGEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayE
 	// like the two handles here, one stores Effect Context and the other stores Effect Spec
 	auto EffectContextHandle = TargetASC->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(this);
-	auto EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);
+	const auto EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);
 	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 }
