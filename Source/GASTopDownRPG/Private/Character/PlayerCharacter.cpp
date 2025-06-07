@@ -4,7 +4,9 @@
 #include "Character/PlayerCharacter.h"
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/RPGPlayerController.h"
 #include "Player/RPGPlayerState.h"
+#include "UI/HUD/RPGHUD.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -43,4 +45,13 @@ void APlayerCharacter::InitAbilityActorInfo()
 	RPGPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(RPGPlayerState, this);
 	AbilitySystemComponent = RPGPlayerState->GetAbilitySystemComponent();
 	AttributeSet = RPGPlayerState->GetAttributeSet();
+
+	// When called on another character's at a specific client, this will be a nullptr, so do not check
+	if (ARPGPlayerController* RPGPlayerController = Cast<ARPGPlayerController>(GetController()))
+	{
+		if (ARPGHUD* RPGHUD = Cast<ARPGHUD>(RPGPlayerController->GetHUD()))
+		{
+			RPGHUD->InitOverlay(RPGPlayerController, RPGPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
