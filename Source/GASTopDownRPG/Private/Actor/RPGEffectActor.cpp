@@ -113,7 +113,7 @@ void ARPGEffectActor::OnEndOverlap(AActor* TargetActor)
 		ActiveEffectHandles.Remove(Key);
 	}
 
-	if (bDestroyOnEffectRemoval && ActiveEffectHandles.Num() == 0)
+	if (bDestroyOnEndOverlap && ActiveEffectHandles.Num() == 0)
 	{
 		Destroy();
 	}
